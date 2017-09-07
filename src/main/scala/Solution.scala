@@ -61,30 +61,7 @@ object Solution {
 			}
 		}
 
-		var movedToUpperLayer = false
-		while (!movedToUpperLayer) {
-			val moveUpLeft = upLeftPosition(position)
-			val moveUpRight = upRightPosition(position, width)
-			if (moveUpLeft.nonEmpty && !matrix(moveUpLeft.get._1)(moveUpLeft.get._2)) {
-				position = moveUpLeft.get
-				movedToUpperLayer = true
-				matrix(position._1)(position._2) = true
-			} else if (moveUpRight.nonEmpty && !matrix(moveUpRight.get._1)(moveUpRight.get._2)) {
-				position = moveUpRight.get
-				movedToUpperLayer = true
-				matrix(position._1)(position._2) = true
-			} else {
-				val moveRight = rightPosition(position, width)
-				if (moveRight.nonEmpty) {
-					position = moveRight.get
-					matrix(position._1)(position._2) = true
-				} else {
-					position = moveUpLeft.get
-					movedToUpperLayer = true
-					matrix(position._1)(position._2) = true
-				}
-			}
-		}
+		position = moveToUpperLayer(position, width, height, matrix)
 
 		printMatrix(matrix)
 
@@ -133,30 +110,7 @@ object Solution {
 			}
 		}
 
-		movedToUpperLayer = false
-		while (!movedToUpperLayer) {
-			val moveUpLeft = upLeftPosition(position)
-			val moveUpRight = upRightPosition(position, width)
-			if (moveUpLeft.nonEmpty && !matrix(moveUpLeft.get._1)(moveUpLeft.get._2)) {
-				position = moveUpLeft.get
-				movedToUpperLayer = true
-				matrix(position._1)(position._2) = true
-			} else if (moveUpRight.nonEmpty && !matrix(moveUpRight.get._1)(moveUpRight.get._2)) {
-				position = moveUpRight.get
-				movedToUpperLayer = true
-				matrix(position._1)(position._2) = true
-			} else {
-				val moveRight = rightPosition(position, width)
-				if (moveRight.nonEmpty) {
-					position = moveRight.get
-					matrix(position._1)(position._2) = true
-				} else {
-					position = moveUpLeft.get
-					movedToUpperLayer = true
-					matrix(position._1)(position._2) = true
-				}
-			}
-		}
+		position = moveToUpperLayer(position, width, height, matrix)
 
 		printMatrix(matrix)
 
@@ -205,30 +159,7 @@ object Solution {
 			}
 		}
 
-		movedToUpperLayer = false
-		while (!movedToUpperLayer) {
-			val moveUpLeft = upLeftPosition(position)
-			val moveUpRight = upRightPosition(position, width)
-			if (moveUpLeft.nonEmpty && !matrix(moveUpLeft.get._1)(moveUpLeft.get._2)) {
-				position = moveUpLeft.get
-				movedToUpperLayer = true
-				matrix(position._1)(position._2) = true
-			} else if (moveUpRight.nonEmpty && !matrix(moveUpRight.get._1)(moveUpRight.get._2)) {
-				position = moveUpRight.get
-				movedToUpperLayer = true
-				matrix(position._1)(position._2) = true
-			} else {
-				val moveRight = rightPosition(position, width)
-				if (moveRight.nonEmpty) {
-					position = moveRight.get
-					matrix(position._1)(position._2) = true
-				} else {
-					position = moveUpLeft.get
-					movedToUpperLayer = true
-					matrix(position._1)(position._2) = true
-				}
-			}
-		}
+		position = moveToUpperLayer(position, width, height, matrix)
 
 		printMatrix(matrix)
 
@@ -268,34 +199,40 @@ object Solution {
 			}
 		}
 
-		movedToUpperLayer = false
-		while (!movedToUpperLayer) {
-			val moveUpLeft = upLeftPosition(position)
-			val moveUpRight = upRightPosition(position, width)
-			if (moveUpLeft.nonEmpty && !matrix(moveUpLeft.get._1)(moveUpLeft.get._2)) {
-				position = moveUpLeft.get
-				movedToUpperLayer = true
-				matrix(position._1)(position._2) = true
-			} else if (moveUpRight.nonEmpty && !matrix(moveUpRight.get._1)(moveUpRight.get._2)) {
-				position = moveUpRight.get
-				movedToUpperLayer = true
-				matrix(position._1)(position._2) = true
-			} else {
-				val moveRight = rightPosition(position, width)
-				if (moveRight.nonEmpty) {
-					position = moveRight.get
-					matrix(position._1)(position._2) = true
-				} else {
-					position = moveUpLeft.get
-					movedToUpperLayer = true
-					matrix(position._1)(position._2) = true
-				}
-			}
-		}
+		position = moveToUpperLayer(position, width, height, matrix)
 
 		printMatrix(matrix)
 
 		matrix
+	}
+
+	private def moveToUpperLayer(position: (Int, Int), width: Int, height: Int, matrix: Array[Array[Boolean]]): (Int, Int) = {
+		var movedToUpperLayer = false
+		var movingPosition = position
+		while (!movedToUpperLayer) {
+			val moveUpLeft = upLeftPosition(movingPosition)
+			val moveUpRight = upRightPosition(movingPosition, width)
+			if (moveUpLeft.nonEmpty && !matrix(moveUpLeft.get._1)(moveUpLeft.get._2)) {
+				movingPosition = moveUpLeft.get
+				movedToUpperLayer = true
+				matrix(movingPosition._1)(movingPosition._2) = true
+			} else if (moveUpRight.nonEmpty && !matrix(moveUpRight.get._1)(moveUpRight.get._2)) {
+				movingPosition = moveUpRight.get
+				movedToUpperLayer = true
+				matrix(movingPosition._1)(movingPosition._2) = true
+			} else {
+				val moveRight = rightPosition(movingPosition, width)
+				if (moveRight.nonEmpty) {
+					movingPosition = moveRight.get
+					matrix(movingPosition._1)(movingPosition._2) = true
+				} else {
+					movingPosition = moveUpLeft.get
+					movedToUpperLayer = true
+					matrix(movingPosition._1)(movingPosition._2) = true
+				}
+			}
+		}
+		movingPosition
 	}
 
 	private def printMatrix(matrix: Array[Array[Boolean]]) = {
