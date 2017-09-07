@@ -25,11 +25,15 @@ object Solution {
 			}
 		}
 
-		position = downLeftPosition(position, height).get
-
-		matrix(position._1)(position._2) = true
-
-		printMatrix(matrix)
+		if (downRightPosition(position, width, height).nonEmpty) {
+			position = downRightPosition(position, width, height).get
+			matrix(position._1)(position._2) = true
+			printMatrix(matrix)
+		} else if (downLeftPosition(position, height).nonEmpty) {
+			position = downLeftPosition(position, height).get
+			matrix(position._1)(position._2) = true
+			printMatrix(matrix)
+		}
 
 		while (leftPosition(position).nonEmpty) {
 			leftPosition(position) match {
@@ -40,7 +44,15 @@ object Solution {
 			}
 		}
 
-		position = upRightPosition(position, width).get
+		if (upLeftPosition(position).nonEmpty) {
+			position = upLeftPosition(position).get
+			matrix(position._1)(position._2) = true
+			printMatrix(matrix)
+		} else if (upRightPosition(position, width).nonEmpty) {
+			position = upRightPosition(position, width).get
+			matrix(position._1)(position._2) = true
+			printMatrix(matrix)
+		}
 
 		position = rightPosition(position, width).get
 
