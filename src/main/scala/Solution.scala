@@ -14,53 +14,35 @@ object Solution {
 
 		matrix(0)(0) = true
 
-		printMatrix(matrix)
+		position = moveRight(position, width, height, matrix)
+
+		position = moveToLowerLayer(position, width, height, matrix)
+
+		position = moveLeft(position, width, height, matrix)
+
+		position = moveToUpperLayer(position, width, height, matrix)
 
 		position = moveRight(position, width, height, matrix)
 
 		position = moveToLowerLayer(position, width, height, matrix)
 
-		printMatrix(matrix)
-
 		position = moveLeft(position, width, height, matrix)
 
 		position = moveToUpperLayer(position, width, height, matrix)
-
-		printMatrix(matrix)
 
 		position = moveRight(position, width, height, matrix)
 
 		position = moveToLowerLayer(position, width, height, matrix)
 
-		printMatrix(matrix)
-
 		position = moveLeft(position, width, height, matrix)
 
 		position = moveToUpperLayer(position, width, height, matrix)
-
-		printMatrix(matrix)
-
-		position = moveRight(position, width, height, matrix)
 
 		position = moveToLowerLayer(position, width, height, matrix)
 
-		printMatrix(matrix)
-
 		position = moveLeft(position, width, height, matrix)
 
 		position = moveToUpperLayer(position, width, height, matrix)
-
-		printMatrix(matrix)
-
-		position = moveToLowerLayer(position, width, height, matrix)
-
-		printMatrix(matrix)
-
-		position = moveLeft(position, width, height, matrix)
-
-		position = moveToUpperLayer(position, width, height, matrix)
-
-		printMatrix(matrix)
 
 		matrix
 	}
@@ -70,7 +52,6 @@ object Solution {
 		while (rightPosition(movingPosition, width).nonEmpty) {
 			rightPosition(movingPosition, width) match {
 				case Some(nextPosition) => matrix(nextPosition._1)(nextPosition._2) = true
-					printMatrix(matrix)
 					movingPosition = nextPosition
 				case None =>
 			}
@@ -83,7 +64,6 @@ object Solution {
 		while (leftPosition(movingPosition).nonEmpty) {
 			leftPosition(movingPosition) match {
 				case Some(nextPosition) => matrix(nextPosition._1)(nextPosition._2) = true
-					printMatrix(matrix)
 					movingPosition = nextPosition
 				case None =>
 			}
