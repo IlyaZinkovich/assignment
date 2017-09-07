@@ -5,46 +5,26 @@ object Solution {
 		val width = 10
 		val height = 4
 		val matrix: Array[Array[Boolean]] = Array.ofDim[Boolean](height, width)
-
-		visitTwoLayers(matrix, width, height)
 	}
 
-	def visitTwoLayers(matrix: Array[Array[Boolean]], width: Int, height: Int): Array[Array[Boolean]] = {
+	def visitLayer(matrix: Array[Array[Boolean]], width: Int, height: Int): Array[Array[Boolean]] = {
 		var position = (0, 0)
-
 		matrix(0)(0) = true
 
-		position = moveRight(position, width, height, matrix)
-
-		position = moveToLowerLayer(position, width, height, matrix)
-
-		position = moveLeft(position, width, height, matrix)
-
-		position = moveToUpperLayer(position, width, height, matrix)
-
-		position = moveRight(position, width, height, matrix)
-
-		position = moveToLowerLayer(position, width, height, matrix)
-
-		position = moveLeft(position, width, height, matrix)
-
-		position = moveToUpperLayer(position, width, height, matrix)
-
-		position = moveRight(position, width, height, matrix)
-
-		position = moveToLowerLayer(position, width, height, matrix)
-
-		position = moveLeft(position, width, height, matrix)
-
-		position = moveToUpperLayer(position, width, height, matrix)
-
-		position = moveToLowerLayer(position, width, height, matrix)
-
-		position = moveLeft(position, width, height, matrix)
-
-		position = moveToUpperLayer(position, width, height, matrix)
+		position = visitCycle(position, width, height, matrix)
+		position = visitCycle(position, width, height, matrix)
+		position = visitCycle(position, width, height, matrix)
+		position = visitCycle(position, width, height, matrix)
 
 		matrix
+	}
+
+	private def visitCycle(position: (Int, Int), width: Int, height: Int, matrix: Array[Array[Boolean]]): (Int, Int) = {
+		val right = moveRight(position, width, height, matrix)
+		val down = moveToLowerLayer(right, width, height, matrix)
+		val left = moveLeft(down, width, height, matrix)
+		val up = moveToUpperLayer(left, width, height, matrix)
+		up
 	}
 
 	private def moveRight(position: (Int, Int), width: Int, height: Int, matrix: Array[Array[Boolean]]): (Int, Int) = {

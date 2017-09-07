@@ -25,13 +25,12 @@ class SolutionSpec extends FlatSpec {
 		assert(downLeftPosition((7, 1), height) isEmpty)
 	}
 
-
-	"A Solution" should "visit two layers" in {
+	"A Solution" should "visit layer" in {
 		val width = 10
 		val height = 10
 		val matrix: Array[Array[Boolean]] = Array.ofDim[Boolean](height, width)
 
-		val updatedMatrix = visitTwoLayers(matrix, width, height)
+		val updatedMatrix = visitLayer(matrix, width, height)
 
 		updatedMatrix(0).foreach(cell => assert(cell))
 		updatedMatrix(2).foreach(cell => assert(cell))
