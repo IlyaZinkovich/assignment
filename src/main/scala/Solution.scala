@@ -16,14 +16,7 @@ object Solution {
 
 		printMatrix(matrix)
 
-		while (rightPosition(position, width).nonEmpty) {
-			rightPosition(position, width) match {
-				case Some(nextPosition) => matrix(nextPosition._1)(nextPosition._2) = true
-					printMatrix(matrix)
-					position = nextPosition
-				case None =>
-			}
-		}
+		position = moveRight(position, width, height, matrix)
 
 		position = moveToLowerLayer(position, width, height, matrix)
 
@@ -35,14 +28,7 @@ object Solution {
 
 		printMatrix(matrix)
 
-		while (rightPosition(position, width).nonEmpty) {
-			rightPosition(position, width) match {
-				case Some(nextPosition) => matrix(nextPosition._1)(nextPosition._2) = true
-					printMatrix(matrix)
-					position = nextPosition
-				case None =>
-			}
-		}
+		position = moveRight(position, width, height, matrix)
 
 		position = moveToLowerLayer(position, width, height, matrix)
 
@@ -54,14 +40,7 @@ object Solution {
 
 		printMatrix(matrix)
 
-		while (rightPosition(position, width).nonEmpty) {
-			rightPosition(position, width) match {
-				case Some(nextPosition) => matrix(nextPosition._1)(nextPosition._2) = true
-					printMatrix(matrix)
-					position = nextPosition
-				case None =>
-			}
-		}
+		position = moveRight(position, width, height, matrix)
 
 		position = moveToLowerLayer(position, width, height, matrix)
 
@@ -84,6 +63,19 @@ object Solution {
 		printMatrix(matrix)
 
 		matrix
+	}
+
+	private def moveRight(position: (Int, Int), width: Int, height: Int, matrix: Array[Array[Boolean]]): (Int, Int) = {
+		var movingPosition = position
+		while (rightPosition(movingPosition, width).nonEmpty) {
+			rightPosition(movingPosition, width) match {
+				case Some(nextPosition) => matrix(nextPosition._1)(nextPosition._2) = true
+					printMatrix(matrix)
+					movingPosition = nextPosition
+				case None =>
+			}
+		}
+		movingPosition
 	}
 
 	private def moveLeft(position: (Int, Int), width: Int, height: Int, matrix: Array[Array[Boolean]]): (Int, Int) = {
