@@ -54,9 +54,29 @@ object Solution {
 			printMatrix(matrix)
 		}
 
-		position = rightPosition(position, width).get
+		while (rightPosition(position, width).nonEmpty) {
+			rightPosition(position, width) match {
+				case Some(nextPosition) => matrix(nextPosition._1)(nextPosition._2) = true
+					printMatrix(matrix)
+					position = nextPosition
+				case None =>
+			}
+		}
 
-		position = downRightPosition(position, width, height).get
+		var movedToLowerLayer = false
+		while (!movedToLowerLayer) {
+			val moveDownRight = downRightPosition(position, width, height)
+			val moveDownLeft = downLeftPosition(position, height)
+			if (moveDownRight.nonEmpty && !matrix(moveDownRight.get._1)(moveDownRight.get._2)) {
+				position = moveDownRight.get
+				movedToLowerLayer = true
+			} else if (moveDownLeft.nonEmpty && !matrix(moveDownLeft.get._1)(moveDownLeft.get._2)) {
+				position = moveDownLeft.get
+				movedToLowerLayer = true
+			} else {
+				position = leftPosition(position).get
+			}
+		}
 
 		matrix(position._1)(position._2) = true
 
